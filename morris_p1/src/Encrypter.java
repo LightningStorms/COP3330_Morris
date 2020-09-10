@@ -2,43 +2,60 @@ public class Encrypter {
     private String test;
 
     public String encrypt(String test){
-        String encrypted = "";
+        int array[]= {'0', '0', '0', '0'};
+        char finished[] = {'0', '0', '0', '0'};
 
-        //add 7
-        encrypted = add7(test);
+        cutString(test, array);
 
-        //swap digits
-        encrypted = swap(encrypted, 0);
-        encrypted = swap(encrypted, 1);
+        //also does the %10, despite name of function
+        add7(array);
 
-        //encrypted now holds the final string...
+        //swap works for both swaps, but just with a modifier a that changes which two get swapped
+        swap(array, 0);
+        swap(array, 1);
 
+        reChar(array, finished);
+
+        //convert array of chars into a string
+        String encrypted= new String(finished);
+        return encrypted;
     }
 
-    // adds 7 to each digit
-    public String add7(String test){
+    //get the individual pieces
+    public static void cutString(String test, int array[]){
+        for (int i = 0; i<4; i++){
+            array[i] = (test.charAt(i)-48);
+        }
+    }
+
+    //cast ints back to chars so that string can be made of the chars
+    public static void reChar(int array[], char finished[]){
+        for (int i=0; i<4; i++){
+            finished[i]= (char) (array[i]+48);
+        }
+    }
+
+    // adds 7 to each digit and gets remainder of division by 10
+    public void add7(int a[]){
         int i;
-        String add7 = "";
 
-        for (i=0; i<4; i++)
-            add7.charAt[i]= test.charAt[i] + 7;
-
-        return add7;
+        for (i=0; i<4; i++) {
+            a[i]+=7;
+            a[i]=a[i]%10;
+        }
     }
 
     //swap first and third digits or second and fourth digits based on 'a'
     //if a is 0, swaps 1 & 3
     //if a is 1 swaps 2 & 4
-    public String swap(String test, int a){
-        String temp = "";
+    public static void swap(int array[], int a){
+        int temp = 0;
 
         /* temp holds the value of 3rd digit so first can be swapped then puts the third
             digit back in the first slot.
          */
-        temp.charAt[0]= test.charAt[2+a];
-        test.charAt[2+a]= test.charAt[0+a];
-        test.charAt[0+a]= temp.charAt[0];
-
-        return test;
+        temp = array[2+a];
+        array[2+a]=array[0+a];
+        array[0+a]=temp;
     }
 }
