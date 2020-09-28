@@ -47,7 +47,7 @@ public class App {
         double input;
 
         while(cont) {
-            System.out.println("Please enter a weight in pounds:");
+            System.out.println("Please enter a height in inches:");
             input = scanner.nextDouble();
             String clear = scanner.nextLine(); //clears anything after
 
@@ -55,7 +55,7 @@ public class App {
                 return input;
             }
             else{
-                System.out.println("Please enter a valid weight");
+                System.out.println("Please enter a valid height");
             }
         }
         return -1;

@@ -10,7 +10,7 @@ class BodyMassIndexTest {
 
         double answer = bmi.getBMI();
 
-        assertEquals(15.203, answer);
+        assertEquals(15.203287, answer);
     }
 
     @Test
@@ -28,7 +28,7 @@ class BodyMassIndexTest {
 
         double answer = bmi.getBMI();
 
-        assertEquals(22.805, answer);
+        assertEquals(22.804931, answer);
     }
 
     @Test
@@ -46,7 +46,7 @@ class BodyMassIndexTest {
 
         double answer = bmi.getBMI();
 
-        assertEquals(26.606, answer);
+        assertEquals(26.605753, answer);
     }
 
     @Test
@@ -64,7 +64,7 @@ class BodyMassIndexTest {
 
         double answer = bmi.getBMI();
 
-        assertEquals(30.406, answer);
+        assertEquals(30.406574, answer);
     }
 
     @Test
