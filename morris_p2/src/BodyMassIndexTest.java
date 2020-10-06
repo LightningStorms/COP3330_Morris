@@ -1,11 +1,11 @@
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BodyMassIndexTest {
 
     @Test
-    public static void testTest(){
+    public void testGetHeight(){
         BodyMassIndex bmi = new BodyMassIndex(68, 100);
 
         double answer = bmi.getHeight();
@@ -14,14 +14,26 @@ class BodyMassIndexTest {
     }
 
     @Test
+    public void testGetWeight(){
+        BodyMassIndex bmi = new BodyMassIndex(68, 100);
+
+        double answer = bmi.getWeight();
+
+        assertEquals(100,answer);
+    }
+
+    //test getBMI, and through that the findBMI method which calculates the BMI
+    @Test
     public void testBMICalculationUnderweight(){
         BodyMassIndex bmi = new BodyMassIndex(68, 100);
 
         double answer = bmi.getBMI();
+        double math_answer = 703*bmi.getWeight()/(bmi.getHeight()*bmi.getHeight());
 
-        assertEquals(15.203287, answer);
+        assertEquals(math_answer, answer);
     }
 
+    //test getCategory, and through that the findBodyMassType method which gets the BMI category
     @Test
     public void testBMICalculationCategoryUnderweight(){
         BodyMassIndex bmi = new BodyMassIndex(68, 100);
@@ -31,13 +43,17 @@ class BodyMassIndexTest {
         assertEquals("Underweight", answer);
     }
 
+    /* Below are further tests of each category along the lines of the above mentions
+    * there is one of each type above for each of the four BMI categories */
+
     @Test
     public void testBMICalculationNormal(){
         BodyMassIndex bmi = new BodyMassIndex(68, 150);
 
         double answer = bmi.getBMI();
+        double math_answer = 703*bmi.getWeight()/(bmi.getHeight()*bmi.getHeight());
 
-        assertEquals(22.804931, answer);
+        assertEquals(math_answer, answer);
     }
 
     @Test
@@ -54,8 +70,9 @@ class BodyMassIndexTest {
         BodyMassIndex bmi = new BodyMassIndex(68, 175);
 
         double answer = bmi.getBMI();
+        double math_answer = 703*bmi.getWeight()/(bmi.getHeight()*bmi.getHeight());
 
-        assertEquals(26.605753, answer);
+        assertEquals(math_answer, answer);
     }
 
     @Test
@@ -72,8 +89,9 @@ class BodyMassIndexTest {
         BodyMassIndex bmi = new BodyMassIndex(68, 200);
 
         double answer = bmi.getBMI();
+        double math_answer = 703*bmi.getWeight()/(bmi.getHeight()*bmi.getHeight());
 
-        assertEquals(30.406574, answer);
+        assertEquals(math_answer, answer);
     }
 
     @Test

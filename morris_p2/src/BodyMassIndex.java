@@ -43,7 +43,7 @@ public class BodyMassIndex {
             Category = "Underweight";
             return Category;
         } else if (BMI <= 24.9) {
-            Category = "Normal Weight";
+            Category = "Normal";
             return Category;
         } else if (BMI <= 29.9) {
             Category = "Overweight";
