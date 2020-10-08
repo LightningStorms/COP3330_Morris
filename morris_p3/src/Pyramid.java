@@ -29,8 +29,8 @@ public class Pyramid  extends Shape3D{
         double area;
 
         area = width*length
-                + Math.sqrt((length*length)/4+(height*height))*length
-                + Math.sqrt((width*width)/4+(height*height))*width;
+                + Math.sqrt((length*length)/4+(height*height))*width
+                + Math.sqrt((width*width)/4+(height*height))*length;
 
         return area;
     }
