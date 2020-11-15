@@ -15,7 +15,26 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void
+    //finds the original tasks index then overwrites it with the new task
+    public void editTask(TaskItem taskOriginal, TaskItem taskNew){
+        int taskLocation;
+        taskLocation = tasks.indexOf(taskOriginal);
+
+        tasks.add(taskLocation, taskNew);
+    }
+
+    public void removeTask(TaskItem task){
+        tasks.remove(task);
+    }
+
+    public void viewTaskList(){
+        int i=0;
+
+        for(TaskItem task : tasks){
+            System.out.printf("%d) %s", i+1, task);
+            i++;
+        }
+    }
 
     public void write(String filename){
         try(Formatter output = new Formatter(filename)){
