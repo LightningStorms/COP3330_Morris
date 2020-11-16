@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
@@ -16,14 +18,12 @@ public class TaskList {
     }
 
     //finds the original tasks index then overwrites it with the new task
-    public void editTask(TaskItem taskOriginal, TaskItem taskNew){
-        int taskLocation;
-        taskLocation = tasks.indexOf(taskOriginal);
-
-        tasks.add(taskLocation, taskNew);
+    public void editTask(int taskOriginal, TaskItem taskNew){
+        tasks.remove(taskOriginal);
+        tasks.add(taskOriginal, taskNew);
     }
 
-    public void removeTask(TaskItem task){
+    public void removeTask(int task){
         tasks.remove(task);
     }
 
@@ -31,7 +31,7 @@ public class TaskList {
         int i=0;
 
         for(TaskItem task : tasks){
-            System.out.printf("%d) %s", i+1, task);
+            System.out.printf("%d) %s %n", i+1, task);
             i++;
         }
     }
@@ -50,17 +50,17 @@ public class TaskList {
         }
     }
 
-    /*
     public void read(String filename){
-        try(Scanner input = new Scanner(filename)){
+        try(Scanner input = new Scanner(Paths.get(filename)){
+            //read from file
+            while(input.hasNext()){
+              System.out.printf("%s", input.nextLine());
+            }
 
-
-        } catch (FileNotFoundException ex){
+        } catch (IOException ex){
             System.out.printf("Unable to find the file: %s", filename);
         } catch (Exception ex){
             ex.printStackTrace();
         }
     }
-
-     */
 }

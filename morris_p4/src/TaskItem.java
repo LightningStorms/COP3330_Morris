@@ -85,7 +85,7 @@ public class TaskItem {
 
     @Override
     public String toString() {
-        return "[" + dueDate + "]" + title + ":" + description;
+        return "[" + dueDate + "] " + title + ": " + description;
     }
 
 }
