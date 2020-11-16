@@ -17,18 +17,35 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public int getSize(){
+        return tasks.size();
+    }
+
     //finds the original tasks index then overwrites it with the new task
     public void editTask(int taskOriginal, TaskItem taskNew){
-        tasks.remove(taskOriginal);
-        tasks.add(taskOriginal, taskNew);
+        if(taskOriginal < tasks.size() && taskOriginal >= 0){
+            tasks.remove(taskOriginal);
+            tasks.add(taskOriginal, taskNew);
+        } else{
+            throw  new IndexOutOfBoundsException("This item does not exist, please try a different item");
+        }
+
     }
 
     public void removeTask(int task){
-        tasks.remove(task);
+        if(task < tasks.size() && task >= 0){
+            tasks.remove(task);
+        } else{
+            throw  new IndexOutOfBoundsException("This item does not exist, please try a different item");
+        }
     }
 
     public void updateStatus(boolean status, int i){
-        tasks.get(i).setStatus(status);
+        if(i < tasks.size() && i >= 0){
+            tasks.get(i).setStatus(status);
+        } else{
+            throw  new IndexOutOfBoundsException("This item does not exist, please try a different item");
+        }
     }
 
     public void viewTaskList(){
@@ -73,12 +90,7 @@ public class TaskList {
         try(Formatter output = new Formatter(filename)){
             for(int i = 0; i < tasks.size(); i++){
                 TaskItem task = tasks.get(i);
-                //checks if it is completed (status true==complete) then prints completed signature if complete
-                if(task.getStatus()){
-                    output.format("*** %d) %s", i+1, task);
-                } else {
-                    output.format("%d) %s", i + 1, task);
-                }
+                output.format("%b %s%n%s%n%s%n", task.getStatus(), task.getTitle(), task.getDescription(), task.getDueDate());
             }
 
         } catch (FileNotFoundException ex){
@@ -88,14 +100,17 @@ public class TaskList {
         }
     }
 
-    /*
     public void read(String filename){
-        try(Scanner input = new Scanner(Paths.get(filename)){
-            //read from file
-            while (input.hasNext()){
-              System.out.printf("%s", input.nextLine());
-            }
+        try{
+            Scanner input = new Scanner(Paths.get(filename));
+            boolean status = input.nextBoolean();
+            String title = input.nextLine();
+            String description = input.nextLine();
+            String dueDate = input.nextLine();
 
+            TaskItem task = new TaskItem(status, title, description, dueDate);
+
+            tasks.add(task);
         } catch (IOException ex){
             System.out.printf("Unable to find the file: %s", filename);
         } catch (Exception ex){
@@ -103,5 +118,5 @@ public class TaskList {
         }
     }
 
-     */
+
 }

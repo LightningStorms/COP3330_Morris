@@ -14,11 +14,13 @@ public class App {
                 case 1:
                     //create new list
                     App a = new App();
+                    System.out.println("new task list has been created");
                     a.manageTasks();
                     break;
                 case 2:
                     //load existing list
-
+                    App b = new App();
+                    b.loadTaskList();
                     break;
                 case 3:
                     //breaks because this is the end while loop call
@@ -62,23 +64,33 @@ public class App {
                     break;
                 case 3:
                     //edit item
-                    editItem();
+                    if(hasTasks()){
+                        editItem();
+                    }
                     break;
                 case 4:
                     //remove item
-                    removeItem();
+                    if(hasTasks()) {
+                        removeItem();
+                    }
                     break;
                 case 5:
                     //mark as complete
-                    markItemComplete();
+                    if(hasTasks()) {
+                        markItemComplete();
+                    }
                     break;
                 case 6:
                     //unmark as complete
-                    markItemIncomplete();
+                    if(hasTasks()) {
+                        markItemIncomplete();
+                    }
                     break;
                 case 7:
                     //save current list
-                    writeTaskList();
+                    if(hasTasks()) {
+                        writeTaskList();
+                    }
                     break;
                 case 8:
                     //end while loop
@@ -92,6 +104,16 @@ public class App {
     private static int getUserInput() {
         System.out.printf("%n> ");
         return input.nextInt();
+    }
+
+    private boolean hasTasks(){
+        if(tasks.getSize()>0){
+            return true;
+        } else{
+            System.out.println("No tasks exist, please create a task first");
+            return false;
+        }
+
     }
 
     private void printList(){
@@ -150,11 +172,16 @@ public class App {
 
         newTask = getNewTaskItem();
 
-        tasks.editTask(taskToEdit-1, newTask);
-        //makes sure that the shift in task numbers is accounted for
+        try{
+            tasks.editTask(taskToEdit-1, newTask);
+            //makes sure that the shift in task numbers is accounted for
+        } catch (IndexOutOfBoundsException ex){
+            System.out.printf("This item does not exist, please try a different item");
+        }
     }
 
     private int getTaskToEdit(){
+        printList();
         System.out.printf("Which task will you edit?");
         return input.nextInt();
     }
@@ -202,8 +229,12 @@ public class App {
 
         itemToRemove = getItemToRemove();
 
-        tasks.removeTask(itemToRemove-1);
-        //accounts for the fact that i have the numbers starting at 1 and index start at 0
+        try{
+            tasks.removeTask(itemToRemove-1);
+            //accounts for the fact that i have the numbers starting at 1 and index start at 0
+        } catch (IndexOutOfBoundsException ex){
+            System.out.printf("This item does not exist, please try a different item");
+        }
     }
 
     private int getItemToRemove(){
@@ -216,8 +247,12 @@ public class App {
 
         itemToComplete = getItemToComplete();
 
-        tasks.updateStatus( true, itemToComplete-1);
-        //accounts for the fact that i have the numbers starting at 1 and index start at 0
+        try{
+            tasks.updateStatus( true, itemToComplete-1);
+            //accounts for the fact that i have the numbers starting at 1 and index start at 0
+        } catch (IndexOutOfBoundsException ex){
+            System.out.printf("This item does not exist, please try a different item");
+        }
     }
 
     private int getItemToComplete(){
@@ -234,8 +269,12 @@ public class App {
 
         itemToInComplete = getItemToInComplete();
 
-        tasks.updateStatus( false, itemToInComplete-1);
-        //accounts for the fact that i have the numbers starting at 1 and index start at 0
+        try{
+            tasks.updateStatus( false, itemToInComplete-1);
+            //accounts for the fact that i have the numbers starting at 1 and index start at 0
+        } catch (IndexOutOfBoundsException ex){
+            System.out.printf("This item does not exist, please try a different item");
+        }
     }
 
     private int getItemToInComplete(){
@@ -256,6 +295,19 @@ public class App {
 
     private String getFileName(){
         System.out.printf("Enter the filename to save as:");
+        return input.nextLine();
+    }
+
+    private void loadTaskList(){
+        String removeSpace = input.nextLine();
+        String filename = getFileToLoad();
+
+        tasks.read(filename);
+        manageTasks();
+    }
+
+    private String getFileToLoad(){
+        System.out.printf("Enter the filename to load:");
         return input.nextLine();
     }
 }

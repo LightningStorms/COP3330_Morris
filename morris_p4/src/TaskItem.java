@@ -24,6 +24,26 @@ public class TaskItem {
         this.status = false;
     }
 
+    public TaskItem(boolean status, String title, String description, String dueDate){
+        if(isTitleValid(title)){
+            this.title = title;
+        } else {
+            throw new InvalidTitleException("Title should be longer than 1 character long");
+        }
+        if(isDescriptionValid(description)){
+            this.description = description;
+        } else {
+            throw new InvalidDescriptionException("Description should be longer than 0 characters");
+        }
+        if(isDateValid(dueDate)) {
+            this.dueDate = dueDate;
+        } else {
+            throw new InvalidDateException("Date should be in YYYY-MM-DD format");
+        }
+
+        this.status = status;
+    }
+
     public void setTitle(String title){
         if(isTitleValid(title)){
             this.title = title;
