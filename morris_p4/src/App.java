@@ -212,11 +212,39 @@ public class App {
     }
 
     private void markItemComplete(){
+        int itemToComplete;
 
+        itemToComplete = getItemToComplete();
+
+        tasks.updateStatus( true, itemToComplete-1);
+        //accounts for the fact that i have the numbers starting at 1 and index start at 0
+    }
+
+    private int getItemToComplete(){
+        System.out.printf("Uncompleted Tasks%n" +
+                "-------------%n" +
+                "%n");
+        tasks.viewTaskListIncomplete();
+        System.out.printf("%nWhich task will you mark as completed? ");
+        return input.nextInt();
     }
 
     private void markItemIncomplete(){
+        int itemToInComplete;
 
+        itemToInComplete = getItemToInComplete();
+
+        tasks.updateStatus( false, itemToInComplete-1);
+        //accounts for the fact that i have the numbers starting at 1 and index start at 0
+    }
+
+    private int getItemToInComplete(){
+        System.out.printf("Completed Tasks%n" +
+                "-------------%n" +
+                "%n");
+        tasks.viewTaskListComplete();
+        System.out.printf("%nWhich task will you unmark as completed? ");
+        return input.nextInt();
     }
 
     private void writeTaskList(){

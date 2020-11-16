@@ -2,6 +2,7 @@ public class TaskItem {
     private String title;
     private String description;
     private String dueDate;
+    private boolean status;
 
     public TaskItem(String title, String description, String dueDate){
         if(isTitleValid(title)){
@@ -19,6 +20,8 @@ public class TaskItem {
         } else {
             throw new InvalidDateException("Date should be in YYYY-MM-DD format");
         }
+
+        this.status = false;
     }
 
     public void setTitle(String title){
@@ -43,6 +46,14 @@ public class TaskItem {
         } else {
             throw new InvalidDateException("Date should be in YYYY-MM-DD format");
         }
+    }
+
+    public void setStatus(boolean status){
+        this.status = status;
+    }
+
+    public boolean getStatus(){
+        return status;
     }
 
     private boolean isTitleValid(String title){

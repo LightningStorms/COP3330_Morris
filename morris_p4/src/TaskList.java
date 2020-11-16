@@ -27,11 +27,44 @@ public class TaskList {
         tasks.remove(task);
     }
 
+    public void updateStatus(boolean status, int i){
+        tasks.get(i).setStatus(status);
+    }
+
     public void viewTaskList(){
         int i=0;
 
         for(TaskItem task : tasks){
+            //checks if it is completed (status true==complete) then prints completed signature if complete
+            if(task.getStatus()){
+                System.out.printf("*** ");
+            }
             System.out.printf("%d) %s %n", i+1, task);
+            i++;
+        }
+    }
+
+    public void viewTaskListComplete(){
+        int i=0;
+
+        for(TaskItem task : tasks){
+            //checks if it is completed then prints with signature
+            if(task.getStatus()){
+                System.out.printf("*** ");
+                System.out.printf("%d) %s %n", i+1, task);
+            }
+            i++;
+        }
+    }
+
+    public void viewTaskListIncomplete(){
+        int i=0;
+
+        for(TaskItem task : tasks){
+            //checks if it is not complete then prints
+            if(!task.getStatus()){
+                System.out.printf("%d) %s %n", i+1, task);
+            }
             i++;
         }
     }
@@ -40,7 +73,12 @@ public class TaskList {
         try(Formatter output = new Formatter(filename)){
             for(int i = 0; i < tasks.size(); i++){
                 TaskItem task = tasks.get(i);
-                output.format("%d) %s", i+1, task);
+                //checks if it is completed (status true==complete) then prints completed signature if complete
+                if(task.getStatus()){
+                    output.format("*** %d) %s", i+1, task);
+                } else {
+                    output.format("%d) %s", i + 1, task);
+                }
             }
 
         } catch (FileNotFoundException ex){
@@ -50,10 +88,11 @@ public class TaskList {
         }
     }
 
+    /*
     public void read(String filename){
         try(Scanner input = new Scanner(Paths.get(filename)){
             //read from file
-            while(input.hasNext()){
+            while (input.hasNext()){
               System.out.printf("%s", input.nextLine());
             }
 
@@ -63,4 +102,6 @@ public class TaskList {
             ex.printStackTrace();
         }
     }
+
+     */
 }

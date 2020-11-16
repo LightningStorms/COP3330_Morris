@@ -78,4 +78,17 @@ class TaskItemTest {
         TaskItem t = new TaskItem("Title", "Description", "2020-02-20");
         assertDoesNotThrow(() -> t.setDescription("Description"));
     }
+
+    @Test
+    public void setStatusUpdatesStatus(){
+        TaskItem t = new TaskItem("Title", "Description", "2020-02-20");
+        t.setStatus(true);
+        assertEquals(true, t.getStatus());
+    }
+
+    @Test
+    public void chechInitialStatusIsFalse(){
+        TaskItem t = new TaskItem("Title", "Description", "2020-02-20");
+        assertEquals(false, t.getStatus());
+    }
 }
